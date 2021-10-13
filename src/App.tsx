@@ -1,5 +1,13 @@
+import { SignUp } from './public/SignUp';
+import { GlobalStyle } from './styles/global';
+
 function App() {
-  return <h1>Hello world</h1>;
+    return (
+        <>
+            <SignUp />
+            <GlobalStyle />
+        </>
+    );
 }
 
 export default App;
