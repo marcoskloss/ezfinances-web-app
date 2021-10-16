@@ -24,20 +24,6 @@ export const RegistrationContainer = styled.div`
         .logo {
             margin: 0 auto 4rem;
         }
-
-        .form-group + .form-group {
-            margin-top: 2.25rem;
-        }
-
-        form {
-            width: 100%;
-        }
-
-        .form-group {
-            input {
-                width: 100%;
-            }
-        }
     }
 
     .background-image {
@@ -49,18 +35,6 @@ export const RegistrationContainer = styled.div`
                 rgba(7, 32, 73, 1) 49%,
                 rgba(15, 49, 114, 1) 85%
             );
-    }
-
-    .submit-box {
-        margin-top: 2.25rem;
-        text-align: right;
-
-        small {
-            display: inline-block;
-            margin-top: 0.8rem;
-            cursor: pointer;
-            color: var(--blue400);
-        }
     }
 
     @media screen and (max-width: 960px) {
@@ -86,20 +60,5 @@ export const RegistrationContainer = styled.div`
         .form-container {
             padding: 5rem 1rem;
         }
-    }
-`;
-
-export const RegistrationButton = styled.button`
-    width: 100%;
-    padding: 0.7rem 0;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    color: var(--gray50);
-    background: var(--blue400);
-    transition: background 0.2s;
-
-    &:hover {
-        background: var(--blue400-hover);
     }
 `;
