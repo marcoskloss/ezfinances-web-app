@@ -1,9 +1,9 @@
 import { RegistrationContainer } from '../../components/RegistrationContainer';
 import { RegistrationInput } from '../../components/RegistrationInput';
+import { Link } from 'react-router-dom';
 import * as S from '../../styles/registration';
 
 export function Login() {
-    console.log(S);
     return (
         <RegistrationContainer>
             <S.RegistrationForm>
@@ -30,16 +30,18 @@ export function Login() {
                     <S.RegistrationButton type="button">
                         Entrar
                     </S.RegistrationButton>
-                    <a href="/">
+                    <Link to="/forgot-password">
                         <S.Small hasAcceentColor={false} hasHover>
                             esqueceu sua senha?
                         </S.Small>
-                    </a>
+                    </Link>
 
                     <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-                        <S.Small hasAcceentColor>
-                            Ainda não possui uma conta?
-                        </S.Small>
+                        <Link to="/sign-up">
+                            <S.Small hasAcceentColor>
+                                Ainda não possui uma conta?
+                            </S.Small>
+                        </Link>
                     </div>
                 </div>
             </S.RegistrationForm>

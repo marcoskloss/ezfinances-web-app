@@ -1,5 +1,6 @@
 import { RegistrationContainer } from '../../components/RegistrationContainer';
 import { RegistrationInput } from '../../components/RegistrationInput';
+import { Link } from 'react-router-dom';
 import * as S from '../../styles/registration';
 
 export function SignUp() {
@@ -36,9 +37,9 @@ export function SignUp() {
                     <S.RegistrationButton type="button">
                         Registrar
                     </S.RegistrationButton>
-                    <a href="/">
+                    <Link to="/login">
                         <S.Small hasAcceentColor>Já possui uma conta?</S.Small>
-                    </a>
+                    </Link>
                 </div>
             </S.RegistrationForm>
         </RegistrationContainer>
