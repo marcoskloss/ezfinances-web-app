@@ -44,6 +44,7 @@ export function SignUp() {
                         name="email"
                         label="email"
                         type="email"
+                        autoComplete="off"
                         value={email}
                         onChange={(ev) => setEmail(ev.target.value)}
                     />
