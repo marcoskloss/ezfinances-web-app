@@ -6,7 +6,7 @@ import {
     useEffect,
 } from 'react';
 import { useHistory } from 'react-router';
-import { Toast } from '../components/Toast';
+import { errorHandler } from '../errors/handler';
 import {
     api,
     setDefaultAuthorizationHeader,
@@ -56,8 +56,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
             await login({ email, password });
         } catch (error) {
-            console.log(error);
-            Toast('Erro ao cadastrar :(');
+            errorHandler(error);
         } finally {
             setLoading(false);
         }
@@ -84,8 +83,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
             history.push('/home');
         } catch (error) {
-            console.log(error);
-            Toast('Erro ao fazer login :<');
+            errorHandler(error);
         } finally {
             setLoading(false);
         }
