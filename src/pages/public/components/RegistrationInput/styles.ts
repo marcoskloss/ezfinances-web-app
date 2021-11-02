@@ -6,10 +6,22 @@ interface RegistrationInputContainerProps {
     label: string;
 }
 
-export const RegistrationInput = styled.input`
+interface RegistrationInputProps {
+    error?: boolean;
+}
+
+export const RegistrationInput = styled.input<RegistrationInputProps>`
     padding: 0.7rem;
     border-radius: 4px;
-    border: 1px solid var(--gray300);
+
+    ${(props) =>
+        props.error
+            ? 'border: 1px solid var(--red-warning)'
+            : 'border: 1px solid var(--gray300)'};
+
+    ${(props) =>
+        props.error ? `&::placeholder { color: var(--red-warning); }` : ''};
+
     font-size: 1rem;
     background: var(--gray50);
 

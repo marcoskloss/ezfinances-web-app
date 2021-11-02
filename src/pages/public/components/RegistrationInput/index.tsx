@@ -5,12 +5,15 @@ import * as S from './styles';
 interface RegistrationInputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string;
     label: string;
+    error?: string;
 }
 
 export function RegistrationInput({
     name,
     label,
     onChange,
+    error,
+    placeholder,
     ...rest
 }: RegistrationInputProps) {
     const [hasFocus, setHasFocus] = useState(false);
@@ -32,13 +35,15 @@ export function RegistrationInput({
         >
             <S.RegistrationInput
                 name={name}
-                {...rest}
+                error={!!error}
+                placeholder={error || placeholder}
                 onFocus={() => setHasFocus(true)}
                 onBlur={() => setHasFocus(false)}
                 onChange={(ev) => {
                     handleChange(ev);
                     onChange && onChange(ev);
                 }}
+                {...rest}
             />
         </S.RegistrationInputContainer>
     );
