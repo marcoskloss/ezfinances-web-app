@@ -1,14 +1,17 @@
-import { RegistrationContainer } from '../../components/RegistrationContainer';
-import { RegistrationInput } from '../../components/RegistrationInput';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from '../../styles/registration';
+import { RegistrationContainer } from '../../components/RegistrationContainer';
+import { RegistrationInput } from '../../components/RegistrationInput';
 import { useAuth } from '../../../../context/AuthContext';
-import { useState } from 'react';
+import { validations, Error } from './validations';
 
 export function SignUp() {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+
+    const [error, setError] = useState<Error | null>(null);
 
     const { signUp } = useAuth();
 
@@ -17,10 +20,23 @@ export function SignUp() {
     ): Promise<void> {
         ev.preventDefault();
 
+        const errors = validations.inputs({ email, password, name });
+        setError(errors);
+
+        if (errors) {
+            return;
+        }
+
         await signUp({
             email,
             name,
             password,
+        });
+    }
+
+    function clearInputError(name: string): void {
+        setError((prevState) => {
+            return { ...prevState, [name]: '' };
         });
     }
 
@@ -34,6 +50,8 @@ export function SignUp() {
                         name="name"
                         autoComplete="off"
                         value={name}
+                        error={error?.['name']}
+                        onClick={() => clearInputError('name')}
                         onChange={(ev) => setName(ev.target.value)}
                     />
                 </div>
@@ -46,6 +64,8 @@ export function SignUp() {
                         type="email"
                         autoComplete="off"
                         value={email}
+                        error={error?.['email']}
+                        onClick={() => clearInputError('email')}
                         onChange={(ev) => setEmail(ev.target.value)}
                     />
                 </div>
@@ -57,6 +77,8 @@ export function SignUp() {
                         name="password"
                         type="password"
                         value={password}
+                        error={error?.['password']}
+                        onClick={() => clearInputError('password')}
                         onChange={(ev) => setPassword(ev.target.value)}
                     />
                 </div>
