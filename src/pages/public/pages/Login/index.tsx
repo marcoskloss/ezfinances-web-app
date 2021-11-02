@@ -1,13 +1,16 @@
-import { RegistrationContainer } from '../../components/RegistrationContainer';
-import { RegistrationInput } from '../../components/RegistrationInput';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from '../../styles/registration';
+import { RegistrationContainer } from '../../components/RegistrationContainer';
+import { RegistrationInput } from '../../components/RegistrationInput';
 import { useAuth } from '../../../../context/AuthContext';
-import { useState } from 'react';
+import { Error, validations } from './validations';
 
 export function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [error, setError] = useState<Error | null>(null);
 
     const { login } = useAuth();
 
@@ -16,7 +19,20 @@ export function Login() {
     ): Promise<void> {
         ev.preventDefault();
 
+        const errors = validations.inputs({ password, email });
+        setError(errors);
+
+        if (errors) {
+            return;
+        }
+
         await login({ email, password });
+    }
+
+    function clearInputError(name: string): void {
+        setError((prevState) => {
+            return { ...prevState, [name]: '' };
+        });
     }
 
     return (
@@ -31,6 +47,8 @@ export function Login() {
                         className="form-group"
                         autoComplete="off"
                         value={email}
+                        error={error?.['email']}
+                        onClick={() => clearInputError('email')}
                         onChange={(ev) => setEmail(ev.target.value)}
                     />
                 </div>
@@ -42,6 +60,8 @@ export function Login() {
                         name="password"
                         type="password"
                         value={password}
+                        error={error?.['password']}
+                        onClick={() => clearInputError('password')}
                         onChange={(ev) => setPassword(ev.target.value)}
                     />
                 </div>
