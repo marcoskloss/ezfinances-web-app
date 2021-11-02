@@ -8,11 +8,11 @@ import {
 import { useHistory } from 'react-router';
 import { errorHandler } from '../errors/handler';
 import {
-    api,
     setDefaultAuthorizationHeader,
     TOKEN_STORAGE_KEY,
 } from '../services/api';
 import { localStorage } from '../services/localStorage';
+import * as request from '../http/requests';
 
 interface UserLoginCredentials {
     email: string;
@@ -48,7 +48,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         try {
             setLoading(true);
 
-            await api.post('/users/create', {
+            await request.createUser({
                 email,
                 name,
                 password,
@@ -69,11 +69,9 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         try {
             setLoading(true);
 
-            const {
-                data: { token },
-            } = await api.post<any>('/users/authenticate', {
-                password,
+            const token = await request.authenticateUser({
                 email,
+                password,
             });
 
             setIsAuthenticated(true);
